@@ -1,0 +1,61 @@
+\documentclass[pdftex,12pt,a4paper]{article}
+
+\input{/home/boris/science/tex_general/title_bor_utf8}
+
+\title{Задачи к курсу mcmc}
+\author{Борис Демешев}
+\date{\today}
+
+% временное решение
+%\newcommand{\solution}[1]{ {\tiny #1} }
+\newcommand{\solution}[1]{}
+
+\newcommand{\problem}[1]{#1}
+
+
+
+
+\begin{document}
+\parindent=0 pt % отступ равен 0
+
+\section{Байесовские сети}
+
+
+\section{Марковские цепи}
+\begin{enumerate}
+\item Шахматный конь начинает в клетке A1. Каждый свой ход он выбирает равновероятно из возможных. Какова вероятность того, что через много-много ходов он окажется в клетке H8? Сколько в среднем длится путь от клетки A1 до клетки A1?
+\end{enumerate}
+\solution{}
+
+\section{Простые байесовские задачи}
+\begin{enumerate}
+\item Случайные величины $X_i$ независимы и одинаково распределены с табличкой
+
+\begin{tabular}{c|ccc}
+$X$ & 1 & 2 & 6 \\ 
+\hline 
+$\P()$ & $\beta$ & $2\beta$ & $1-3\beta$ \\ 
+\end{tabular} 
+
+Известно, что $X_1=1$, $X_2=2$, $X_3=2$, $X_4=4$. 
+\begin{enumerate}
+\item Найдите оценку $\hat{\beta}$ методом моментов
+\item Найдите оценку $\hat{\beta}$ методом максимального правдоподобия
+\item Предположим, что $\beta$ равномерно на отрезке $[0;1/3]$. Найдите апостериорную условную функцию плотности $\beta$ с учётом полученных наблюдений. С какой функцией она совпадает?
+\item Предположим, что $\beta$ имеет функцию плотности $f(t)=18t$ на отрезке $[0;1/3]$. Найдите апостериорную функцию плотности $\beta$. 
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+\section{Компьютерные}
+
+\begin{enumerate}
+\item Макар-Лиманов
+\item Своя собственная регрессия 
+\end{enumerate}
+
+
+
+\end{document}
