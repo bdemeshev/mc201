@@ -1,0 +1,396 @@
+\section {Чебурашка (Марковские цепи)}
+
+Есть такой персонаж --- Чебурашка. Он же у нас --- некая система, которая может находиться в двух состояниях --- $a$(хорошее настроение) и $b$(плохое настроение). Если мы находимся в состоянии $а$, вероятность перейти в состояние $b$ --- 0.7. Вероятность перейти из этого состояния обратно в состояние $а$, соответственно --- 0.3. Если мы находимся в состоянии $b$, вероятность перейти в состояние $а$ --- 0.6, вероятность перейти в состоянии $b$ ---  0.4.
+
+\includegraphics[width=80mm]{ Cheburashka.png}
+
+Допустим, он стартовал из состояния $а$. $S_t$ - состояние в момент времени $t$. 
+Нас интересует вероятность того, что $S_t=a$. 
+Особенно нас интересует предел при $t\to \infty$, то есть с какой вероятностью через много-много лет Чебурашка будет в хорошем настроении?
+В матричном виде получается, что эта системка --- чистая линейная алгебра. Давайте мы введем вектор вероятностей:
+
+$x_t = \left( \begin{array}{ll}
+		P(S_t=a) & P(S_t=b) \\
+		\end{array} \right).\\	$
+Если Чебурашка стартует с хорошим настроением, то начальный вектор вероятностей:
+$x_0= \left( \begin{array}{l}
+		1 \\ 
+		0\\
+		\end{array} \right)\\  $
+				
+Найдем вектор вероятностей для следующего дня ($t=1$):
+$P(S_1=a)=0.3\\
+P(S_1=b)=0.7\\
+x_1= \left( \begin{array}{l}
+		0.3 \\ 
+		0.7\\
+		\end{array} \right)\\ $
+Выпишем $x_2$, и все станет ясно:
+$P(S_2=a)=0.3\cdot 0.3+0.7\cdot0.6\\
+P(S_2=b)=0.3\cdot0.7+0.7\cdot0.7\\ $
+Можем записать в общем виде:
+$P(S_{t+1}=a)=P(S_t=a)\cdot0.3+P(S_t=b)\cdot0.6\\
+P(S_{t+1}=b)=P(S_t=a)\cdot0.7+P(S_t=b)\cdot0.4\\ $
+В чистом виде матричная алгебра, потому что 
+$x_{t+1}= 
+\left( \begin{array}{ll}
+		0.3  0.7\\
+		0.6  0.4\\
+\end{array} \right)\cdot
+x_t
+\left( \begin{array}{l}
+		S_t=a\\
+		S_t=b\\
+\end{array} \right)\\ $
+$x_{t+1}$ находится в явном виде.
+Матрица $\left( \begin{array}{ll}
+		0.3  0.7\\
+		0.6  0.4\\
+\end{array} \right)$  ---  $P$. Тогда:
+$x_1=Px_0\\
+x_2=Px_1=P^2 x_0\\
+x_3=Px_2=P^3x_0\\
+x_n=P^nx_0\\ $
+
+Возьмем и возведем матрицу в n-ую степень.
+Матрица $P$ представима в виде:
+$P = \left( \begin{array}{ll}
+		0.3 & 0.6\\
+		0.7 & 0.4\\
+		\end{array} \right) =C \cdot D\cdot C^{-1}
+$, где $C$ --- матрица из собственных векторов, $D$ --- матрица собственных значений
+$\left( \begin{array}{ll}
+		\lambda_1  & 0\\
+		0  & \lambda_2\\
+		\end{array} \right)\\ $
+Найдем собственные числа:
+			
+$\begin{vmatrix}
+	0.3-\lambda & 0.6\\
+	0.7 & 0.4-\lambda
+\end{vmatrix}=0\\
+(0.3-\lambda)(0.4-\lambda)-0.6\cdot0.7=0\\
+0.12-0.7\lambda+\lambda^2-0.42=0\\
+\lambda^2-0.7\lambda-0.3=0\\
+\lambda_1=1  \lambda_2=-0.3\\ $
+
+Найдем собственные векторы:
+$\left( \begin{array}{ll}
+		-0.7 & 0.6\\
+		0.7 & 0.6\\
+		\end{array} \right) $
+Подбираем любой собственный вектор:
+  $h_1 = \left( \begin{array}{ll}
+		6 & 7\\
+		\end{array} \right)\\
+\begin{pmatrix}
+	0.6 & 0.6\\
+	0.7 & 0.7
+\end{pmatrix} \Rightarrow 
+h_2=\left( \begin{array}{ll}
+		1 & -1\\
+		\end{array} \right) $
+Получилось, что матрица P представима в виде:
+$P=\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		1  & 0\\
+		0  & -0.3\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)^{-1}\\ $
+В $P^n$ только серединка будет возводиться в степень.
+В явном виде получили уравнение вероятности того, в каком настроении будет Чебурашка через $n$ дней: 
+$		x_n=\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		1  & 0\\
+		0  & -0.3\\
+		\end{array} \right)^n
+	\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)^{-1} \cdot x_0 $
+Найдем теперь предел $x_n$ при $n\to \infty$.
+Если матрицу возвести в очень большую степень, то 1 останется 1, а -0.3 --- 0: 
+$\lim_{n\to\infty}x_n=
+	\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		1  & 0\\
+		0  & 0\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)^{-1}\\ $
+Можно руками досчитать уравнение:
+$\lim_{n\to\infty}x_n=
+	\left( \begin{array}{ll}
+		6  & 0\\
+		7  & 0\\
+		\end{array} \right)
+	\left( \begin{array}{ll}
+		6  & 1\\
+		7  & -1\\
+		\end{array} \right)^{-1}\cdot x_0 $
+		
+$\lim_{n\to\infty}x_n=
+	\left( \begin{array}{ll}
+		6  & 0\\
+		7  & 0\\
+		\end{array} \right)\cdot 1/13\cdot
+	\left( \begin{array}{ll}
+		1  & -1\\
+		-7  & 6\\
+		\end{array} \right)\cdot x_0 $
+
+$\lim_{n\to\infty}x_n=
+	(-1/13)\cdot 
+	\left( \begin{array}{ll}
+		6x_1  & 6x_2\\
+		7x_1  & 7x_2
+		\end{array} \right)=
+	\left( \begin{array}{l}
+		6/13\\
+		7/13\\
+		\end{array} \right) $
+		
+Получили, что ответ не зависит от $x_0$: еважно, как мы начинали --- вероятности состояний $a$ и $b$ в пределе будут одинаковы. Этот результат можно было получить и проще.
+
+Представим старого Чебурашку через много-много лет. Наступает следующий день, и бесконечно старый Чебурашка мало чем отличается от бесконечно старого Чебурашки, прожившего еще один день.
+Математически: есть вектор $x_{\infty}$. Если пройдет еще один день, то он не должен измениться. 
+У нас есть зависимость:
+$x_{t+1}=Px_t$
+Если мы возьмем предел слева и справа от зависимости $x_t$ и $x_{t+1}$(предположив, что предел есть), получим: $\lim_{t\to\infty}x_\infty=Px_{\infty}$ 
+Сумма вероятностей равна 1, и получается простенькое уравнение ($r$ --- вероятность состояния $a$):
+$\left( \begin{array}{l}
+		r\\
+		1-r
+		\end{array} \right)=
+ \left( \begin{array}{ll}
+		0.3  & 0.6\\
+		0.7  & 0.4
+		\end{array} \right)
+\left( \begin{array}{l}
+		r\\
+		1-r
+		\end{array} \right) 
+x_\infty=lim_{t\to\infty}x_t=
+\left( \begin{array}{l}
+		r\\
+		1-r\\
+		\end{array} \right) 
+r=0.3r+0.6(1-r) \Rightarrow r=6/13 $
+		
+Получили те же 6/13, только просто.
+Ремарка: Предполагалось, что предел существует, из-за свойств матрицы $P$(его собственные значения меньше либо равны 1,это потом отдельно как-нибудь докажем) это действительно так
+Давайте пойдем дальше. Как применить к игре Паррондо Чебурашку?
+
+
+Теорию марковских цепей отложим на следующий раз. Сейчас --- игра паррондо
+У нас была игра Б. Возможно 3 остатка от деления на 3 --- 0, 1 и 2. Давайте чертить 
+стрелочки. Тут все красиво: здесь --- по часовой стрелке, тут --- против.
+Если сейчас остаток от деления на 0, какова вероятность что следующий остаток будет 1?
+Сейчас остаток 0 - сумма в кошельке делится на 3. С вероятностью 0.05 я получу 1 рубль,
+и остаток станет 1, с вероятностью 0.95 он станет 2. Сейчас оствток --- 2: нужно прибавить рубль --- 0.7, рубль --- 0.3. Аналогично для рубля. Не будем матрицу составлять. 
+У нас много случайных величин, мы пока последим за $X_n$ --- остатком от деления на 3 суммы в кошельке в момент времени $n$. 
+\begin{tikzpicture}[grow=down]
+ \tikzset{edge from parent/.style=
+     {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
+\tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
+\tikzstyle{level 1}=[sibling distance=3cm]
+\tikzstyle{level 2}=[sibling distance=2cm]
+	\node[mystart] {} 
+	child { node[mydot] {}
+		child { node[mydot, label=below: $+1$] {}
+		edge from parent node[left] {$0.05$} }
+		child { node[mydot, label=below: $-1$] {}
+		edge from parent node[right] {$0.95$} }
+	edge from parent node[left] {$m=3k$} }
+	child { node[mydot] {}
+		child { node[mydot, label=below: $+1$] {}
+		edge from parent node[left] {$0.7$} }
+		child { node[mydot, label=below: $-1$] {}
+		edge from parent node[right] {$0.3$} }
+	edge from parent node[right] {$m\ne3k$} };
+\end{tikzpicture}
+
+\includegraphics[width=80mm]{ Parrondo.png}
+$X_t$ --- суммы в кошельке в момент времени $t$
+$\lim{n\to\infty}(X_n=0)
+ \lim{n\to\infty}(X_n=1)
+ \lim{n\to\infty}(X_n=2) $
+ Посчитаем пределы. Как мы это будем делать? Введем вектор вероятностей $y_n$:
+
+ $y_n=\left( \begin{array}{l}
+		P(X_n=0)\\
+		P(X_n=1)\\
+		P(X_n=2)
+		\end{array} \right) $
+Как и в случае с Чебурашкой, $y_{n+1}=P\cdot y_n\\ $. Только размерность матрицы P будет другая. Найдем матрицу P в этом случае. 
+Какова вероятность перейти в состояние 0, если я был в состоянии 0 - 0: нули по диагонали.
+Если я был в состоянии 0, то какова вероятность перейти в состояние 
+
+$\left( \begin{array}{l}
+		P(X_{n+1}=0)\\
+		P(X_{n+1}=1)\\
+		P(X_{n+2}=2)
+		\end{array} \right)=
+\left( \begin{array}{l}
+		0\cdot P(X_n=0)+0.3P(X_n=1)+0.7P(X_n=2)\\
+		0.05P(X_n=0)+0\cdot P(X_n=1)+0.3P(X_n=2)\\
+		0/05P(X_n=0)+0.7P(X_n=1)+0\cdot P(X_n=2)\\
+		\end{array} \right) $
+Значит, наша матрица P имеет следующий вид:
+$P=\left( \begin{array}{lll}
+		0    &0.3 & 0.7\\
+		0.05 &0 & 0.3\\
+		0.05 &0.7 & 0\\
+		\end{array} \right) $
+И мы хотим найти $y_\infty=\liminf{y_n}$, то есть если я буду долго-долго играть в эту игру, каковы будут вероятности иметь остатки 0,1 и 2 от деления на 3 суммы в кошельке. Не будем сейчас считать собственные числа. Пойдем по идее $y_\infty=P\cdot y_\infty$
+Введем две неизвестных(a - вероятность 0, b- вероятность 1): 
+
+$\left( \begin{array}{l}
+		a\\
+		b\\
+		1-a-b
+		\end{array} \right)=
+\left( \begin{array}{l}
+		0+0.3b+0.7(1-a-b)\\
+		0.05a+0+0.3(1-a-b)\\
+		0.05a+0.7b+0\\
+		\end{array} \right) $
+Двух уравнений для двух неизвестных достаточно, поэтому третье не будем дальше смотреть.
+Решаем:
+
+$\begin{cases}
+a  =  0.3b+0.7-0.7a-0.7b \\
+b  =  0.05a+0.3-0.3a-0.3b 
+\end{cases}
+$
+
+$\begin{cases}
+1.7a + 0.4b  =  0.7 \\
+0.25a + 1.3b  =  0.3 
+\end{cases}$
+
+
+
+
+
+Домножим все на 10, и тогда получается:
+$a=\frac{\begin{vmatrix}
+	7 & 4\\
+	3 & 13
+\end{vmatrix}}
+{\begin{vmatrix}
+	17 & 4\\
+	2.5 & 13
+\end{vmatrix}}=\frac{91-12}{221-10}=\frac{79}{211}\\ $
+
+Нашли $a$, точно так же находим $b$:
+$b=\frac{\begin{vmatrix}
+	17 & 2.5\\
+	7 & 3
+\end{vmatrix}}
+{211}=\frac{33,5}{211}\\ $
+
+Это нам дает возможность оперделить,выигрышная эта игра или проигрышная, потому что мы знаем, что когда пройдет много-много времени, с вероятнотсью 79/211 остаток будет кратен 0. 
+Я знаю:
+$\frac{79}{211} \Rightarrow m=3k\\
+\frac{132}{211} \Rightarrow m\ne 3k\\ $
+Посмотрим мат.ожидание выигрыша через много-много лет:
+$\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132}{211}0.4=\frac{132\cdot 4-79\cdot9}{10\cdot211}<0$
+То есть сама по себе эта игра через много времени будет приносить отрицательное матожидание выигрыша. А что будет, если ее комбинировать с игрой А? Не будем до конца доводить вычисления, просто идейно:
+%игра А-в дерево
+%дерево общее
+Можем дерево упростить: сначала смотреть, делится ли сумма в кошельке на 3, и уже затем с вероятностью 1/2 выбирать игру А или игру В. Тогда получается вот такое дерево:
+\begin{tikzpicture}[grow=down]
+ \tikzset{edge from parent/.style=
+     {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
+\tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
+\tikzstyle{level 1}=[sibling distance=4cm]
+\tikzstyle{level 2}=[sibling distance=3cm]
+\tikzstyle{level 3}=[sibling distance=2cm]
+	\node[mystart] {} 
+	child { node[mydot] {}
+		child { node[mydot, label=above:A] {}
+			child { node[mydot] {}
+			edge from parent node[left] {${\tiny 0.45}$} }
+			child { node[mydot] {}
+			edge from parent node[left] {$0.55$} }
+		edge from parent node[left] {$1/2$} }
+		child { node[mydot, label=above: B] {}
+			child { node[mydot] {}
+			edge from parent node[left] {$0.05$} }
+			child { node[mydot] {}
+			edge from parent node[left] {$0.95$} }
+		edge from parent node[right] {$1/2$} }
+	edge from parent node[left] {$m=3k$} }
+	child { node[mydot] {}
+		child { node[mydot,label=above:A] {}
+			child { node[mydot] {}
+			edge from parent node[left] {$0.45$} }
+			child { node[mydot] {}
+			edge from parent node[left] {$0.55$} }
+		edge from parent node[left] {$1/2$} }
+		child { node[mydot, label=below:B] {}
+			child { node[mydot] {}
+			edge from parent node[left] {$0.7$} }
+			child { node[mydot] {}
+			edge from parent node[left] {$0.3$} }
+		edge from parent node[right] {$1/2$} }
+	edge from parent node[right] {$m\ne3k$} };
+\end{tikzpicture}
+ Получается, что мы можем усреднить эти вероятности и получить, что игра 
+  $1/2A+1/2B$ эквивалента следующей игре:
+\begin{tikzpicture}[grow=down]
+ \tikzset{edge from parent/.style=
+     {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
+\tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
+\tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
+\tikzstyle{level 1}=[sibling distance=3cm]
+\tikzstyle{level 2}=[sibling distance=2cm]
+	\node[mystart] {} 
+	child { node[mydot] {}
+		child { node[mydot, label=below:+1] {}
+		edge from parent node[left] {$1/2(0.05+0.45)=0.25$} }
+		child { node[mydot, label=above: -1] {}
+		edge from parent node[right] {$0.75$} }
+	edge from parent node[left] {$m=3k$} }
+	child { node[mydot] {}
+		child { node[mydot,label=below:+1] {}
+		edge from parent node[left] {$0.575$} }
+		child { node[mydot, label=below:-1] {}
+		edge from parent node[right] {$0.425$} }
+	edge from parent node[right] {$m\ne3k$} };
+\end{tikzpicture}  
+Для такой игры мы можем с помощью цепей Маркова посчитать предельные вероятноти остатка 0, остатка 1, остатка 2. Зная предельные вероятности, узнаю средний выигрыш. Получится, что он все-таки получается  положительный.
+Вот такое чудо: играешь долго-долго в игру А, она отрицательный выирыш дает, Б - тоже, а с вероятностями --- положительный выигрыш.
+Заодно мы и цепи Маркова прошли, хотя бы на практике. Осталось дома что-нибудбь порешать.
+46:05
+
+
+
+
+
+
+
+
+
+
+
+
+
+
