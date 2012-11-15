@@ -5,7 +5,7 @@
 \begin{enumerate}
 \item  Оценить вероятность того, что у нее два сына, при условии, что у хотя бы один из ее детей --- мальчик.
 Находим просто по формуле (M --- мальчик, D --- девочка):
-$p(MM|\bar{DD})=\frac{p(MM,\bar{DD}}{p(\bar{DD})}=\frac{1/4}{3/4}=\frac{1}{3}$
+$\\p(MM|\bar{DD})=\frac{p(MM,\bar{DD}}{p(\bar{DD})}=\frac{1/4}{3/4}=\frac{1}{3}$
 \item Оценить вероятность того, что у нее два сына, при условии, что у хотя бы один мальчик --- стрелец.
 Построим дерево судьбы тети Глаши(MC --- мальчик-стрелец, МНС --- мальчик-не стрелец):
 \end{enumerate}
@@ -14,48 +14,48 @@ $p(MM|\bar{DD})=\frac{p(MM,\bar{DD}}{p(\bar{DD})}=\frac{1/4}{3/4}=\frac{1}{3}$
  \tikzset{edge from parent/.style=
      {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
 \tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
-\tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
+\tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt,font=\sffamily\small]
 \tikzstyle{level 1}=[sibling distance=4cm]
 \tikzstyle{level 2}=[sibling distance=3cm]
 \tikzstyle{level 3}=[sibling distance=2cm]
 
 \node[mystart, label=above: {Children}] {} 
-	child { node[mydot, label=above: $M$] {}
-		child { node[mydot, label=above: $MHC$] {}
-			child { node[mydot, label=below: $D$] {}
-			edge from parent node[left] {$1/2$} }
-			child { node[mydot, label=below: $M$] {}
-				child { node[mydot, label=below: $MHC$] {}
-				edge from parent node [left] {$11/12$} }
-				child { node[mydot, label=below: $MC$] {}
-				edge from parent node [right] {$1/12$} }
-			edge from parent node[right] {$1/2$} }
-		edge from parent node[left] {$11/12$} }
-		child { node[mydot, label=above: $MC$] {}
-			child { node[mydot, label=below: $D$] {}
-			edge from parent node[left] {$1/2$} }
-			child { node[mydot, label=above: $M$] {}
-				child { node[mydot, label=below: $MHC$] {}
-				edge from parent node [left] {$11/12$} }
-				child { node[mydot, label=below: $MC$] {}
-				edge from parent node [right] {$1/12$} }
-			edge from parent node[right] {$1/2$} }
-		edge from parent node[right] {$1/12$} }
-	edge from parent node[right] {$1/2$} }
-	child { node[mydot, label=above: $D$] {}
-		child { node[mydot, label=below: $D$] {}
-		edge from parent node[left] {$1/2$} }
-		child { node[mydot, label=above: $M$] {}
-			child { node[mydot, label=below: $MHC$] {}
-			edge from parent node [left] {$11/12$} }
-			child { node[mydot, label=below: $MC$] {}
-			edge from parent node [right] {$1/12$} }
-		edge from parent node[right] {$1/2$} }
-	edge from parent node[left] {$1/2$} };
+	child { node[mydot, label=above: $\small M$] {}
+		child { node[mydot, label=above: $\small MHC$] {}
+			child { node[mydot, label=below: $\small D$] {}
+			edge from parent node[left] {$\frac{1}{2}$} }
+			child { node[mydot, label=above: $\small M$] {}
+				child { node[mydot, label=below: $\small MHC$] {}
+				edge from parent node [left] {$\frac{11}{12}$} }
+				child { node[mydot, label=below: $\small MC$] {}
+				edge from parent node [right] {$\frac{1}{12}$} }
+			edge from parent node[right] {$\frac{1}{2}$} }
+		edge from parent node[left] {$\frac{11}{12}$} }
+		child { node[mydot, label=above: $\small MC$] {}
+			child { node[mydot, label=below: $\small D$] {}
+			edge from parent node[left] {$\frac{1}{2}$} }
+			child { node[mydot, label=above: $\small M$] {}
+				child { node[mydot, label=below: $\small MHC$] {}
+				edge from parent node [left] {$\frac{11}{12}$} }
+				child { node[mydot, label=below: $\small MC$] {}
+				edge from parent node [right] {$\frac{1}{12}$} }
+			edge from parent node[right] {$\frac{1}{2}$} }
+		edge from parent node[left] {$\frac{1}{12}$} }
+	edge from parent node[right] {$\frac{1}{2}$} }
+	child { node[mydot, label=above: $\small D$] {}
+		child { node[mydot, label=below: $\small D$] {}
+		edge from parent node[left] {$\frac{1}{2}$} }
+		child { node[mydot, label=above: $\small M$] {}
+			child { node[mydot, label=below: $\small MHC$] {}
+			edge from parent node [left] {$\frac{11}{12}$} }
+			child { node[mydot, label=below: $\small MC$] {}
+			edge from parent node [right] {$\frac{1}{12}$} }
+		edge from parent node[right] {$\frac{1}{2}$} }
+	edge from parent node[left] {$\frac{1}{2}$} };
 \end{tikzpicture}
 
 Теперь вспомним, что вероятность исхода на дереве равна произведению вероятностей на веточках, ведущих к этому исходу. Найдем нужные ветви судьбы, где у тети Глаши рождается два сына и где один мальчик --- стрелец, и посчитаем:
-$p(MM|\exists {MC})=\frac{p(MM,\exists{MC})}{p(\exists {MC})}=\frac{1/12*1/12*1/2+1/2*11/12*1/2*1/12}{1/12*1/12*1/2+1/2*11/12*1/2*1/12+1/2*1/12*1/2+1/2*1/2*1/12}=\frac{23}{47}$
+$p(MM|\exists {MC})=\frac{p(MM,\exists{MC})}{p(\exists {MC})}=\frac{1/12\cdot1/12\cdot1/2+1/2\cdot11/12\cdot1/2\cdot1/12}{1/12\cdot1/12\cdot1/2+1/2\cdot11/12\cdot1/2\cdot1/12+1/2\cdot1/12\cdot1/2+1/2\cdot1/2\cdot1/12}=\frac{23}{47}$
 Чудо! Вероятность двух сыновей при условии, что один сын --- стрелец, почти $1/2$!
 Почему так происходит? Потому что рождение стрельца --- куда более редкое событие, чем рождение просто мальчика.
 end{enumerate}
@@ -88,7 +88,7 @@ $\begin{array}{c|ccc}
 \end{itemize}
  Как Спящей красавице нужно отвечать на вопросы?
 
-Неясно. Первый вопрос вообще сформулирован некорректно: <<сегодня понедельник>> --- это не событие, а функция от времени: $f(t=$пн$)=TRUE$ или $f(t=$пн$)=FALSE$.
+Неясно. Первый вопрос вообще сформулирован некорректно: <<сегодня понедельник>> --- это не событие, а функция от времени: $f(t='пн')=TRUE$ или $f(t='пн')=FALSE$.
 А на другие вопросы она отвечать каким-либо определенным образом не заинтересована. \\
 
 Пусть теперь в эксперименте предусмотрена система поощрений: за каждый правильный ответ Спящей Красавице будут дарить молодильное яблоко. 
@@ -120,19 +120,19 @@ $\begin{array}{c|ccc}
 
 \section{Условная независимость}
 
-<<Классическая>> независимость событий $A$ и $B$: $\P(AB)=\P(A)*\P(C)$
+<<Классическая>> независимость событий $A$ и $B$: $\P(AB)=\P(A)\cdot\P(C)$
 Условная независимость. События $A$ и $B$ называются условно независимыми при условии, что событие $C$ произошло, если $\P(AB \mid C)=\P(A \mid C)\P(B \mid C)$ или, что эквивалентно, $\P(A\mid BC)=\P(A\mid C)$. 
 
 Примеры.
 \begin{enumerate}
 \item Независимые, но условно зависимые события.
-Монетку подбросили два раза. $A$ --- выпал орел в первый раз, $B$ --- выпал орел во второй раз, $C$ --- выпал всего один орел. $A$ и $B$ независимы, но $\P(A\mid B\cap C)=0$, а $\P(A\mid C)=1/2$: нет условной независимости.
+Монетку подбросили два раза. $А$ --- выпал орел в первый раз, $В$ --- выпал орел во второй раз, $С$ --- выпал всего один орел. $А$ и $В$ независимы, но $\P(A\mid BC)=0$, а $\P(A\mid C)=1/2$: нет условной независимости.
 \item Зависимые, но условно независимые события.
-$A$ --- Маша идет в кино, $B$ --- Саша идет в кино, $C$ --- они не знакомы.\\
+$A$ - Маша идет в кино, $В$ - Саша идет в кино, $С$ - они не знакомы.\\
 
 Есть правильная монетка (1/2 --- орел) и неправильная монетка (2/3 --- орел). Мы выбираем монетку с вероятностью 1/2 и подбрасываем 2 раза (одну и ту же). $A$ --- в первый раз орел, $B$ --- орел во второй раз, $C$ --- была выбрана неправильная монетка.\\
-$\P(A)=1/2*1/2+1/2*2/3=7/12$\\
-$\P(A\mid B)=\frac{\P(AB)}{\P(B)}=\frac{1/2*1/2+1/2*4/9)}{7/12} \not = 7/12$\\
+$\P(A)=1/2\cdot1/2+1/2\cdot2/3=7/12$\\
+$\P(A\mid B)=\frac{\P(AB)}{\P(B)}=\frac{1/2\cdot1/2+1/2\cdot4/9)}{7/12} \not = 7/12$\\
 $\P(A\mid BC)=\P(A\mid C)=2/3$ --- интуитивно
 \item Независимы при условии $C$, зависимы при отрицании $C$
 $A$ --- ел рыбы фугу, $B$ --- умер, $C$ --- фугу была правильно приготовлена.
@@ -149,7 +149,7 @@ $\forall$ борелевских\footnote{Если смысл этого сло�
 Примечание: для <<плохих>> --- не борелевских множеств вероятность не определена. 
 
 Дискретные случайные величины $X$ и $Y$ независимы, если: 
-$\P(X=x \cap Y=y)=\P(X=x)*\P(Y=y)$
+$\P(X=x \cap Y=y)=\P(X=x)\cdot\P(Y=y)$
 
 Условная независимость случайных величин.\\ $X$ и $Y$ при условии $Z$:
 Дискретные случайные величины $X$ и $Y$ условно независимы при условии $Z$, если для любых $x$, $y$ и $z$:
@@ -194,21 +194,25 @@ X \perp \mbox{non descendant}(X) \mid \mbox{parents}(X)
 \end{equation}
 
 
-\begin{tikzpicture}[grow=right]
-\tikzstyle{mycircle} = [circle, draw, minimum width=16pt, inner sep=0pt] % node style
-\tikzstyle{edge from parent}=
-     [angle 45-,draw, % рисуем стрелочку
-     edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}] % это магическое заклинание направляющее ребра к центру узла, а не к точке под узлом:     
-\tikzstyle{every node}=[mycircle]
-\node {$X_1$} % создаем узел 
-    child { node {$X_2$}
-	    child { node {$X_3$}        
-		    child { node {$X_5$} 
-			child {node {$X_7$} }
-			child {node {$X_8$} } } } 
-	    child { node {$X_4$}        
-		    child { node {$X_6$} 
-			child {node {$X_7$} } } } };
+\begin{tikzpicture}[grow=right,->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+  thin,main node/.style={circle, draw, minimum width=16pt, inner sep=0pt}]
+\node[main node] (1) {$X_1$};
+\node[main node] [right of=1] (2) {$X_2$};
+\node[main node] [below right  of=2] (3) {$X_3$};
+\node[main node] [above right of=2] (4) {$X_4$};
+\node[main node] [right of=3] (5) {$X_5$};
+\node[main node] [right of=4] (6) {$X_6$};
+\node[main node] [right of=6] (7) {$X_7$};
+\node[main node] [right of=5] (8) {$X_8$};
+\path
+(1) edge node {} (2)
+(2) edge node {} (3)
+	edge node {} (4)
+(3) edge node {} (5)
+(4) edge node {} (6)
+(5) edge node {} (7)
+	edge node {} (8)
+(6) edge node {} (7);
 \end{tikzpicture}
 
 На картинке:

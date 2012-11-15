@@ -225,7 +225,20 @@ r=0.3r+0.6(1-r) \Rightarrow r=6/13 $
 	edge from parent node[right] {$m\ne3k$} };
 \end{tikzpicture}
 
-\includegraphics[width=80mm]{ Parrondo.png}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+  thin,main node/.style={circle, draw, minimum width=16pt, inner sep=0.5pt}]
+\node[main node] (1) {$0$};
+\node[main node] (2) [below left of=1] {$1$};
+\node[main node] (3) [below right of=1] {$2$};
+\path
+(1) edge[bend right] node[left] {0.05} (2)	
+(2) edge[bend right] node[below] {0.7} (3)	
+(3) edge[bend right] node[right] {0.7} (1)	
+(1)	edge[left] node[left]  {0.35} (3)	
+(2)	edge[left] node[right] {0.3} (1)
+(3) edge[left] node[above] {0.3} (2);	
+\end{tikzpicture}
+
 $X_t$ --- суммы в кошельке в момент времени $t$
 $\lim{n\to\infty}(X_n=0)
  \lim{n\to\infty}(X_n=1)
@@ -319,16 +332,16 @@ $\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132
      {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
 \tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
 \tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
-\tikzstyle{level 1}=[sibling distance=4cm]
-\tikzstyle{level 2}=[sibling distance=3cm]
-\tikzstyle{level 3}=[sibling distance=2cm]
+\tikzstyle{level 1}=[sibling distance=6cm,font=\sffamily\small]
+\tikzstyle{level 2}=[sibling distance=3cm,font=\sffamily\small]
+\tikzstyle{level 3}=[sibling distance=2cm,font=\sffamily\small]
 	\node[mystart] {} 
 	child { node[mydot] {}
 		child { node[mydot, label=above:A] {}
 			child { node[mydot] {}
 			edge from parent node[left] {${\tiny 0.45}$} }
 			child { node[mydot] {}
-			edge from parent node[left] {$0.55$} }
+			edge from parent node[left] {$\small 0.55$} }
 		edge from parent node[left] {$1/2$} }
 		child { node[mydot, label=above: B] {}
 			child { node[mydot] {}
@@ -350,7 +363,7 @@ $\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132
 			child { node[mydot] {}
 			edge from parent node[left] {$0.3$} }
 		edge from parent node[right] {$1/2$} }
-	edge from parent node[right] {$m\ne 3k$} };
+	edge from parent node[right] {$m \ne 3k$} };
 \end{tikzpicture}
  Получается, что мы можем усреднить эти вероятности и получить, что игра 
   $1/2A+1/2B$ эквивалента следующей игре:
@@ -362,12 +375,12 @@ $\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132
      {draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
 \tikzstyle{mystart} = [circle, minimum width=3pt,fill, inner sep=0pt]
 \tikzstyle{mydot} = [circle, minimum width=2pt,fill, inner sep=0pt]
-\tikzstyle{level 1}=[sibling distance=3cm]
-\tikzstyle{level 2}=[sibling distance=2cm]
+\tikzstyle{level 1}=[sibling distance=3cm,font=\sffamily\small]
+\tikzstyle{level 2}=[sibling distance=2cm,font=\sffamily\small]
 	\node[mystart] {} 
 	child { node[mydot] {}
 		child { node[mydot, label=below:+1] {}
-		edge from parent node[left] {$1/2(0.05+0.45)=0.25$} }
+		edge from parent node[left] {$0.25$} }
 		child { node[mydot, label=above: -1] {}
 		edge from parent node[right] {$0.75$} }
 	edge from parent node[left] {$m=3k$} }
@@ -377,7 +390,8 @@ $\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132
 		child { node[mydot, label=below:-1] {}
 		edge from parent node[right] {$0.425$} }
 	edge from parent node[right] {$m\ne 3k$} };
-\end{tikzpicture}  
+\end{tikzpicture}
+
 Для такой игры мы можем с помощью цепей Маркова посчитать предельные вероятноти остатка 0, остатка 1, остатка 2. Зная предельные вероятности, узнаю средний выигрыш. Получится, что он все-таки получается  положительный.
 Вот такое чудо: играешь долго-долго в игру А, она отрицательный выирыш дает, Б - тоже, а с вероятностями --- положительный выигрыш.
 Заодно мы и цепи Маркова прошли, хотя бы на практике. Осталось дома что-нибудбь порешать.
@@ -387,21 +401,19 @@ $\frac{79}{211}(0.05-0.95)+\frac{132}{211}(0.7-0.3)=-0.9\frac{79}{211}+\frac{132
 Упражнение 1.
 Мышь бегает по коридорчикам:
 
-\begin{comment}
-\begin{tikzpicture}
-\node[main node] (1) {a}
-\node[main node] (2) [below left of=1] {b}
-\node[main node] (3) [below right of=2] {c}
-[->,>=stealth',shorten >=1pt,auto,node distance=3cm]
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3cm,
+  thin,main node/.style={circle, draw, minimum width=16pt, inner sep=0pt}]
+\node[main node] (1) {a};
+\node[main node] (2) [below left of=1] {b};
+\node[main node] (3) [below right of=1] {c};
 \path[every node/.style={font=\sffamily\small}]
  (1) edge[loop above] node {0.1} (1)
- 	 edge [bend left] (2)
- (2) edge[loop right] node {0.2} (2)
- 	 edge [bend left] (3)
+ 	 edge [bend right] node {0.9} (2)
+ (2) edge[loop left] node {0.2} (2)
+ 	 edge [bend right] node {0.8} (3)
  (3) edge [loop right] node{0.3} (3)
- 	 edge [bend left] (1)
+ 	 edge [bend right] node {0.7} (1);
 \end{tikzpicture}
-\end{comment}
 
 Нужно найти:
 $\P(S_t=a)$, $\P(S_t=b)$, $\P(S_t=c)$ при $t\to\infty$
@@ -409,7 +421,6 @@ $\P(S_t=a)$, $\P(S_t=b)$, $\P(S_t=c)$ при $t\to\infty$
 Упражнение 2. Даша и Глаша. 
 Даша и Глаша подкидывают <<правильную>> монетку до тех пор, пока не выпадет ОРО или РРР. Глаша выигрывает в случае РРР, Даша ---  в случае ОРО. 
 Найти вероятность того, что выиграет Даша.
-
 
 
 Упражнение 3.
@@ -421,19 +432,6 @@ $\P(S_t=a)$, $\P(S_t=b)$, $\P(S_t=c)$ при $t\to\infty$
 
 В теории вероятностей о причинно-следственных связях не говорят: есть совместная функция плотности $X$ и $Y$, а кто причина, кто следствие, не говорят: $X$ может влиять на $Y$, $Y$ может влиять на $X$ или какая-то $Z$ может влиять и на $X$, и на $Y$.  
 Одна и та же формула и в случае зависимого $Y$, и в случае зависимого $X$: $p(x)\cdot p(y\mid x)=p(x\mid y)=p(y)\cdot p(x\mid y)$. Но когда $X$ влияет на $Y$, логичнее запись $p(x)\cdot p(y\mid x)$.
-
-\begin{comment}
-\begin{tikzpicture}
-\tikzstyle{mycircle} = [circle, draw, minimum width=16pt
-\tikzstyle{main node}=[mycircle]
-\node[main node] (1) {$X_1$}
-\node[main node] [below left of=1] (2) {$X_2$}
-\node[main node] [below right of=1] (3) {$X_3$}
-(1) edge node[left] (3)
-	edge node[right] (2)
-(2) edge node[right] (3)
-\end{tikzpicture}
-\end{comment}
 
 По такой логике можно расклаывать на сомножители совместные функции плотности:
  для 
@@ -470,50 +468,33 @@ $p(x,y,z)=p(x)\cdot p(y \mid x) p(z \mid x)$
 
 для
 
-\begin{comment}
-\begin{tikzpicture}
-\tikzstyle{mycircle} = [circle, draw, minimum width=16pt, inner sep=0pt] % node style
-\tikzset{edge from parent/.style=
-     {-angle 45, % рисуем стрелочку
-     % это магическое заклинание направляющее ребра к центру узла, а не к точке под узлом:
-     draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
-\tikzstyle{every node}=[mycircle]
-\node  (1) {$X_1$} 
-\node [below right of=1] (2) {$X_2$} 
-\node [below left of=2] {$X_3$} (3)
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.5cm,
+  thin,main node/.style={circle, draw, minimum width=16pt, inner sep=0pt}]
+\node[main node]  (1) {$X_1$}; 
+\node[main node] [below right of=1] (2) {$X_2$}; 
+\node[main node] [below left of=1] (3){$X_3$} ;
 \path
-(1) edge node [left] (3)
-	edge node [right] (2)
-(2) edge node (3)
+(1) edge node [right] {} (3)
+	edge node [left] {} (2)
+(2) edge node [left] {} (3);
 \end{tikzpicture}
-\end{comment}
-
 
 
 $p(X_1,X_2,X_3)=p(X_1)p(X_2\mid X_1) p(X_3 \mid X_1,X_2)$
 
 для
 
-\begin{comment}
- 
-\begin{tikzpicture}
-\tikzstyle{mycircle} = [circle, draw, minimum width=16pt, inner sep=0pt] % node style
-\tikzset{edge from parent/.style=
-     {-angle 45, % рисуем стрелочку
-     % это магическое заклинание направляющее ребра к центру узла, а не к точке под узлом:
-     draw, edge from parent path={(\tikzparentnode) -- (\tikzchildnode)}}}
-\tikzstyle{every node}=[mycircle]
-\node (1) {$X_1$} 
-\node (2) [below of=1] {$X_2$} 
-\node (3) [below of=2] {$X_3$}
-\node (4) [left of=2]{$X_4$}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.7cm,
+  thin,main node/.style={circle, draw, minimum width=16pt, inner sep=0pt}]
+\node[main node] (1) {$X_1$};
+\node[main node] (2) [below of=1] {$X_2$};
+\node[main node] (3) [below of=2] {$X_3$};
+\node[main node] (4) [left of=2]{$X_4$};
 \path
-(1) edge node (2)
-(2) edge node (3)
-(4) edge node (3)
+(1) edge node {} (2)
+(2) edge node {} (3)
+(4) edge node {} (3);
 \end{tikzpicture}
-
-\end{comment}
 
 
 $p(x_1,X_2,X_3,X_4)=p(X_1)p(X_4)p(X_2\mid X_1)p(X_3\mid X_1,X_4)$
