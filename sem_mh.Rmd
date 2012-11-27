@@ -1,0 +1,79 @@
+# Алгоритм Метрополиса-Хастингса
+
+
+```{r}
+library(ggplot2)
+n.draw <- 10000 # number of x to draw
+chain.l <- 100000
+p <- 1/3
+options(scipen=1000) # большой штраф за научную форму записи 
+```
+
+
+Наша цель --- сгенерить выборку из `r n.draw` значений геометрического распределения с параметром `r p`. Мы сделаем `r chain.l` шагов по придуманной нами марковской цепи, из которых отберем последние `r n.draw` шагов.
+
+Геометрическое распределение - это номер подбрасывания монетки, на котором впервые выпадает "Орёл". Поэтому $\pi_i=p(1-p)^{i-1}$.
+
+
+За основу возьмём симметричное случайное блуждание, которое ходит влево и вправо с вероятностью $q(i\to i+1)=1/2$, $q(i\to i-1)=1/2$.
+
+По алгоритму Метрополиса-Хастингса находим вероятность перехода вправо:
+\[p(i\to i+1)=\min\left\{q(i\to i+1),q(i+1\to i)\frac{\pi_{i+1}}{\pi_i}\right\}=\frac{1-p}{2}\]
+И влево:
+\[p(i+1\to i)=\min\left\{q(i+1\to i),q(i\to i+1)\frac{\pi_{i}}{\pi_{i+1}}\right\}=\frac{1}{2}\]
+
+Следовательно, вероятность остаться на месте должна равняться $1-\frac{1}{2}-\frac{1-p}{2}=\frac{p}{2}$.
+
+Есть одно исключение: исходное симметричное случайное блуждание может попасть в ноль и отрицательные числа, а геометрическое распределение - строго положительное. Значит, если дошли до нуля, то надо вернуться в единицу.
+
+
+Создаём функцию, которая делает один шаг по марковской цепи:
+```{r}
+go <- function(n) {
+  # one step on the Markov-chain
+  if (n<1) stop("n should be > 0")
+        
+  res <- sample((n-1):(n+1),size=1,
+                prob=c(1/2,p/2,(1-p)/2) )
+  if (res==0) res <- 1
+  return(res)  
+}
+```
+
+А теперь функцию, которая делает n шаго по марковской цепи:
+```{r}
+gogogo <- function(start=1,n=1000) {
+ # n steps on the Markov-chain starting from start  
+  res <- rep(start,n)
+  
+  for (i in 2:n) res[i] <- go(res[i-1])
+  
+  return(res)
+}
+```
+
+Делаем наши `r chain.l` шагов по марковской цепи. На моём компе 10 млн шагов занимают несколько минут. Для knitr'а полезно включить опцию "cache=TRUE".
+```{r cache=TRUE}
+x<- gogogo(1,chain.l)
+```
+
+Отбираем последние шаги и для сравнения генерим геометрическое распределение встроенной функцией `rgeom()`.
+```{r}
+n.omit <- chain.l - n.draw # number of x to omit
+x.draw <- x[(n.omit+1):chain.l]
+y<- rgeom(n.draw,p)+1 
+xy <- c(x.draw,y)
+kto <- factor(rep(c("chain","built-in"),each=n.draw))
+d <- data.frame(xy,kto)
+```
+
+
+Графики в студию!
+```{r}
+ggplot(d,aes(x=xy,fill=kto))+geom_histogram(binwidth=1,position="dodge")
+
+ggplot(d,aes(x=xy,fill=kto))+geom_histogram(binwidth=1,position="identity",alpha=0.3)
+# alhpa = color intensity from 0 to 1
+
+ggplot(d,aes(x=xy,fill=kto))+geom_histogram(binwidth=1)+facet_grid(~kto)
+```
