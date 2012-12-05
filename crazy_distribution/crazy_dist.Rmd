@@ -1,0 +1,77 @@
+# Генерим забубенистую случайную величину!
+
+[Остальные материалы mcmc-курса](https://github.com/bdemeshev/mc201/wiki)
+
+Наша мечта --- сгенерить много значений случайной величины с функцией плотности $\pi(x)=c\cdot \exp(-x^2)(3+\cos(16\cdot x))$. Эту выборку можно использовать с разными целями. Например, с высокой точностью оценить дисперсию этой случайной величины.
+
+```{r "setup", include=FALSE}
+library(ggplot2)
+library(gridExtra)
+options(scipen=10) # penalty for scientific notation
+```
+
+
+## Готовим нужные функции
+```{r "alpha"}
+alpha <- function(a,b) {
+  # probability density of transition 
+  # from state a to state b
+  res <- exp(a^2-b^2)*(3+cos(16*b))/(3+cos(16*a))
+  return(min(c(1,res)))
+}
+```
+
+## Создаём исходную цепь
+```{r "исходная цепь"}
+go_q <- function(a) {
+  # y_t = y_{t-1}+e_t
+  return(a+rnorm(1))
+}
+```
+
+## Создаём MH-испорченную цепь
+```{r "изменённая цепь"}
+go_p <- function(a) {
+  proposal <- go_q(a)
+  p.accept <- alpha(a,proposal)
+  res <- ifelse(runif(1)<p.accept,proposal,a)
+  return(res)
+}
+```
+
+## Много шагов по изменённой цепи
+```{r "много шагов"}
+gogogo <- function(a,n.steps=1) {
+  res <- rep(a,times=n.steps)
+  for (i in 2:n.steps) res[i] <- go_p(res[i-1])
+  return(res)
+}
+
+```
+
+## Смотрим на результат
+```{r "final output"}
+chain.len <- 10^6
+
+h <- data.frame(obs=1:chain.len)
+h$chain <- gogogo(0,chain.len)
+
+# burn-in: we completely forget about the starting iterations of the chain
+burn.len <- 10^4
+h <- h[h$obs>burn.len,]
+
+# we will draw only the final 10000 iterations of the Markov chain
+hh <- h[h$obs>chain.len-9999,] 
+
+g1 <- ggplot(hh,aes(x=obs,y=chain))+geom_line()
+g2 <- ggplot(hh,aes(x=chain))+geom_histogram(binwidth=0.05)+coord_flip()
+g <- arrangeGrob(g1,g2,nrow=1)
+g
+```
+
+Выборочная дисперсия равна `r sd(h$chain)^2`. Конечно, это не настоящая дисперсия, а выборочная, но у нас такая большая выборка, что разница несущественна. Для сравнения: в силу симметрии функции плотности истинное математическое ожидание равно нулю, а выборочное равно `r mean(h$chain)`.
+
+
+
+
+
