@@ -1,5 +1,6 @@
 # Алгоритм Метрополиса-Хастингса
 
+[Остальные материалы mcmc-курса](https://github.com/bdemeshev/mc201/wiki)
 
 ```{r}
 library(ggplot2)
@@ -40,7 +41,7 @@ go <- function(n) {
 }
 ```
 
-А теперь функцию, которая делает n шаго по марковской цепи:
+А теперь функцию, которая делает n шагов по марковской цепи:
 ```{r}
 gogogo <- function(start=1,n=1000) {
  # n steps on the Markov-chain starting from start  
@@ -77,3 +78,4 @@ ggplot(d,aes(x=xy,fill=kto))+geom_histogram(binwidth=1,position="identity",alpha
 
 ggplot(d,aes(x=xy,fill=kto))+geom_histogram(binwidth=1)+facet_grid(~kto)
 ```
+

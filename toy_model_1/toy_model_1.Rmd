@@ -1,0 +1,78 @@
+# Оцениваем модель-игрушку
+
+[Остальные материалы mcmc-курса](https://github.com/bdemeshev/mc201/wiki)
+
+## Создаём мир!
+
+```{r}
+n.obs <- 300
+chain.len <- 10^5
+
+x <- rnorm(n.obs,mean=42,sd=6)
+```
+
+
+## Готовим нужные функции
+```{r "alpha"}
+alpha <- function(a,b) {
+  # probability density of transition 
+  # from state a to state b
+  inside <- sum((x-b[1])^2)/b[2]-sum((x-a[1])^2)/a[2]
+
+  
+  first <- sqrt(a[2]/b[2])^n.obs*exp(-0.5*inside)
+  
+
+  
+  second <- exp(a[1]^2/2/10^6-b[1]^2/2/10^6)*
+    (b[2]/a[2])^499*exp(a[2]/2-b[2]/2)
+
+  
+  res <- first*second
+  return(min(c(1,res)))
+}
+```
+
+## Создаём исходную цепь
+```{r "исходная цепь"}
+go_q <- function(a) {
+  # y_{1,t} = y_{1,t-1}+e_{1,t}
+  # y_{2,t} = y_{2,t-1}*exp(e_{2,t})
+  return(c(a[1]+rnorm(1),a[2]*exp(rnorm(1))))
+}
+```
+
+## Создаём MH-испорченную цепь
+```{r "изменённая цепь"}
+go_p <- function(a) {
+  proposal <- go_q(a)
+  p.accept <- alpha(a,proposal)
+
+  res <- ifelse(runif(1)<p.accept,proposal,a)
+  return(res)
+}
+```
+
+## Много шагов по изменённой цепи
+```{r "много шагов"}
+gogogo <- function(a,n.steps=1) {
+  res <- data.frame(mu=rep(a[1],times=n.steps),sigma2 =rep(a[2],times=n.steps))
+  for (i in 2:n.steps) res[i,] <- go_p(res[i-1,])
+  return(res)
+}
+
+```
+
+## Смотрим на результат
+```{r "final output"}
+library(ggplot2)
+library(gridExtra)
+h <- gogogo(1,chain.len)
+h$obs <- 1:chain.len
+
+g1 <- ggplot(h,aes(x=obs,y=chain))+geom_line()
+g2 <- ggplot(h,aes(x=chain))+geom_histogram(binwidth=0.05)+coord_flip()
+g <- arrangeGrob(g1,g2,nrow=1)
+g
+```
+
