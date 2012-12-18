@@ -14,21 +14,25 @@ x <- rnorm(n.obs,mean=42,sd=6)
 
 ## Готовим нужные функции
 ```{r "alpha"}
+
+ln_prior <- function(a) {
+  # log of prior distribution at the point a=(mu,sigma^2)
+  result <- -a[1]^2/2/10^6-a[2]/2+499*log(a[2])
+  return(result)
+}
+
+ln_conditional <- function(a) {
+  # log of conditional distribution at the point a=(mu,sigma^2)
+  result <- (-1)*n.obs/2*log(a[2])-sum((x-a[1])^2)/2/a[2]
+  return(result)
+}
+
+
 alpha <- function(a,b) {
   # probability density of transition 
   # from state a to state b
-  inside <- sum((x-b[1])^2)/b[2]-sum((x-a[1])^2)/a[2]
-
-  
-  first <- sqrt(a[2]/b[2])^n.obs*exp(-0.5*inside)
-  
-
-  
-  second <- exp(a[1]^2/2/10^6-b[1]^2/2/10^6)*
-    (b[2]/a[2])^499*exp(a[2]/2-b[2]/2)
-
-  
-  res <- first*second
+  res <- ln_prior(b)+ln_conditional(b)-ln_prior(a)-ln_conditional(a)
+  res <- exp(res)
   return(min(c(1,res)))
 }
 ```
@@ -48,7 +52,9 @@ go_p <- function(a) {
   proposal <- go_q(a)
   p.accept <- alpha(a,proposal)
 
-  res <- ifelse(runif(1)<p.accept,proposal,a)
+  res <- a
+  if (runif(1)<p.accept) res<-proposal
+
   return(res)
 }
 ```
@@ -56,8 +62,9 @@ go_p <- function(a) {
 ## Много шагов по изменённой цепи
 ```{r "много шагов"}
 gogogo <- function(a,n.steps=1) {
-  res <- data.frame(mu=rep(a[1],times=n.steps),sigma2 =rep(a[2],times=n.steps))
-  for (i in 2:n.steps) res[i,] <- go_p(res[i-1,])
+  res <- data.frame(mu=rep(a[1],times=n.steps),
+                    sigma2 =rep(a[2],times=n.steps))
+  for (i in 2:n.steps) res[i,] <- go_p(as.numeric(res[i-1,]))
   return(res)
 }
 
@@ -67,11 +74,11 @@ gogogo <- function(a,n.steps=1) {
 ```{r "final output"}
 library(ggplot2)
 library(gridExtra)
-h <- gogogo(1,chain.len)
+h <- gogogo(c(1,1),chain.len)
 h$obs <- 1:chain.len
 
-g1 <- ggplot(h,aes(x=obs,y=chain))+geom_line()
-g2 <- ggplot(h,aes(x=chain))+geom_histogram(binwidth=0.05)+coord_flip()
+g1 <- ggplot(h,aes(x=obs,y=mu))+geom_line()
+g2 <- ggplot(h,aes(x=mu))+geom_histogram(binwidth=0.05)+coord_flip()
 g <- arrangeGrob(g1,g2,nrow=1)
 g
 ```

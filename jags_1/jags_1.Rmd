@@ -1,0 +1,48 @@
+# Первый пример с jags
+
+
+Создаём реальность!
+```{r}
+# скажем knitr'у, что надо кэшировать все куски
+# при повторном запуске всё будет быстро!
+opts_chunk$set(cache=TRUE)
+
+
+set.seed(3) # 3 - Любимое Анино число
+n.obs <- 300 # количество наблюдений
+chain.len <- 10000 # длина цепи
+x <- cos(1:n.obs)*8
+eps <- rnorm(n.obs,mean=0,sd=4)
+y <- 2+3*x+eps
+```
+
+Оцениваем модель
+```{r}
+setwd("~/science/probability/mc201/jags_1/")
+library(rjags)
+library(ggplot2)
+library(ggmcmc)
+model <- jags.model("simple_regression.jags",
+                    data=list('y'=y,'x'=x,'n'=n.obs),n.chains=2,n.adapt=1000)
+
+result <- coda.samples(model,
+          variable.names=c("beta1","beta2","sigma2"),
+                       n.iter=100000)
+
+df <- ggs(result)
+```
+
+Строим график апостериорного распределения
+```{r}
+ggs_density(df)
+```
+
+
+
+
+
+
+
+
+
+

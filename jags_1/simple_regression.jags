@@ -1,0 +1,11 @@
+model {
+
+# Описание модели
+for (i in 1:n) {
+  y[i] ~ dnorm(beta1+beta2*x[i],1/sigma2)
+}
+# Априорное мнение
+  beta1 ~ dnorm(0,0.000001)
+  beta2 ~ dnorm(0,0.000001)
+  sigma2 ~ dunif(0,10^6) 
+}
