@@ -6,7 +6,7 @@
 
 ```{r}
 n.obs <- 300
-chain.len <- 10^5
+chain.len <- 10^4
 
 x <- rnorm(n.obs,mean=42,sd=6)
 ```
