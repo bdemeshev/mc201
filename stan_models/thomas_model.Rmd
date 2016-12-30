@@ -1,0 +1,87 @@
+---
+title: "Модель Томаса"
+author: "Винни-Пух"
+date: "12/30/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library("tidyverse")
+library("rstan") # вызываем дух преподобного Томаса!
+library("forcats")
+
+# Шаманские заклинания для ускорения STAN:
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+```
+
+## Современная формулировка
+
+$b$ — вероятность выпадения решки
+
+Априорно: 
+
+$b \sim U[0;1]$
+
+Данные:
+
+$y_i$ — результаты прошлых бросков (0 — орёл, 1 — решка)
+
+Апостериорно: 
+
+$b|y_1, \ldots, y_N$ ~ ?
+
+
+```{r}
+model <- "
+data {
+  int N;
+  int y[N];
+}
+parameters {
+  real<lower=0, upper=1> b; 
+}
+model {
+  b ~ uniform(0, 1);
+
+  for (n in 1:N) {
+    y[n] ~ bernoulli(b);
+  }
+}
+"
+
+y <- c(1, 1, 1, 1, 0, 1, 1)
+N <- length(y)
+data <- list(N = N, y = y)
+
+fit_post <- stan(model_code = model, 
+            data = data, iter = 1000, chains = 4)
+```
+
+
+```{r}
+model_prior <- "
+parameters {
+  real<lower=0, upper=1> b; 
+}
+model {
+  b ~ uniform(0, 1);
+}
+"
+fit_prior <- stan(model_code = model_prior, 
+            data = data, iter = 1000, chains = 4)
+
+```
+
+График
+
+```{r}
+par_prior <- rstan::extract(fit_prior, "b")$b
+par_post <- rstan::extract(fit_post, "b")$b
+df_prior <- data_frame(par = par_prior, partype = "prior")
+df_post <- data_frame(par = par_post, partype = "posterior")
+all_df <- bind_rows(df_prior, df_post)
+all_df <- mutate(all_df, partype = fct_relevel(partype, "prior"))
+qplot(data = all_df, x = par) + facet_grid(~ partype)
+```
+

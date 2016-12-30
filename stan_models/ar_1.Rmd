@@ -1,0 +1,99 @@
+---
+title: "Модель Томаса"
+author: "Винни-Пух"
+date: "12/30/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library("tidyverse")
+library("rstan") # вызываем дух преподобного Томаса!
+library("forcats")
+library("sophisthse")
+
+
+# Шаманские заклинания для ускорения STAN:
+rstan_options(auto_write = TRUE)
+options(mc.cores = parallel::detectCores())
+```
+
+## Современная формулировка
+
+
+
+Априорно: 
+
+$\alpha \sim N(0;1000^2)$, $\beta \sim N(0;1000^2)$
+
+Данные:
+
+$y_i | \alpha, \beta, y_{i-1} \sim N(\alpha + \beta y_{i-1}, \sigma^2)$
+
+Апостериорно: 
+
+$\alpha, \beta|y_1, \ldots, y_N$ ~ ?
+
+
+```{r}
+model <- "
+data {
+  int N;
+  int y[N];
+}
+parameters {
+  real alpha;
+  real beta;
+  real<lower=0> sigma;
+}
+model {
+  alpha ~ normal(0, 1000);
+  beta ~ normal(0, 1000);
+  sigma ~ exponential(1000);
+
+
+  for (n in 2:N) {
+    y[n] ~ normal(alpha + beta * y[n-1], sigma);
+  }
+}
+"
+
+
+y <- as.vector(sophisthse("POPNUM_Y"))
+N <- length(y)
+data <- list(N = N, y = y)
+
+fit_post <- stan(model_code = model, 
+            data = data, iter = 1000, chains = 4)
+```
+
+
+```{r}
+model_prior <- "
+parameters {
+  real alpha;
+  real beta;
+  real<lower=0> sigma;
+}
+model {
+  alpha ~ normal(0, 1000);
+  beta ~ normal(0, 1000);
+  sigma ~ exponential(1000);
+}
+"
+fit_prior <- stan(model_code = model_prior, 
+            data = data, iter = 1000, chains = 4)
+
+```
+
+График
+
+```{r}
+par_prior <- rstan::extract(fit_prior, "beta")$beta
+par_post <- rstan::extract(fit_post, "beta")$beta
+df_prior <- data_frame(par = par_prior, partype = "prior")
+df_post <- data_frame(par = par_post, partype = "posterior")
+all_df <- bind_rows(df_prior, df_post)
+all_df <- mutate(all_df, partype = fct_relevel(partype, "prior"))
+qplot(data = all_df, x = par) + facet_grid(~ partype)
+```
+
