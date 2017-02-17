@@ -2,7 +2,7 @@
 
 * [Цикл заметок по R](http://bdemeshev.github.io/r_cycle/)
 * [github-репозиторий](https://github.com/bdemeshev/mc201) курса — свалка всех файлов :)
-* черновик задачника
+* [черновик задачника](https://github.com/bdemeshev/mcmc_pset/raw/master/mcmc_pset_main.pdf)
 
 
 ### ранх-2017
