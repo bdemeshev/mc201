@@ -1,0 +1,11 @@
+### Ссылки
+
+* [Цикл заметок по R](http://bdemeshev.github.io/r_cycle/)
+* [github-репозиторий](https://github.com/bdemeshev/mc201) курса — свалка всех файлов :)
+* черновик задачника
+
+
+### ранх-2017
+* Монетка из шапки: [код stan](https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.stan), [код R](https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.R)
+
+### вшэ-2013 (?)
