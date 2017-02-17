@@ -12,5 +12,5 @@
 
 ### вшэ-2012
 
-* [Агитка на курс](http://bdemeshev.github.io/hse_2012/agitka.html)
-* [Лог курса](http://bdemeshev.github.io/hse_2012/2012_log.html)
+* [Агитка на курс](http://bdemeshev.github.io/mc201/hse_2012/agitka.html)
+* [Лог курса](http://bdemeshev.github.io/mc201/hse_2012/2012_log.html)
