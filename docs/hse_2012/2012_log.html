@@ -119,27 +119,152 @@ $(document).ready(function () {
 </div>
 
 
-<div class="section level3">
-<h3>Ссылки</h3>
+<div class="section level2">
+<h2>УРА!</h2>
+<p>Мы сделали это!!! Мы встретим Новый Год с чистой совестью! Всем Большое Спасибо!</p>
+</div>
+<div class="section level2">
+<h2>Расписание</h2>
+<p>Старая титульная <a href="https://github.com/bdemeshev/mc201/wiki/Home2">страничка</a>.</p>
+</div>
+<div id="--" class="section level2">
+<h2>Заметки к лекциям</h2>
 <ul>
-<li><a href="http://bdemeshev.github.io/r_cycle/">Цикл заметок по R</a></li>
-<li><a href="https://github.com/bdemeshev/mc201">github-репозиторий</a> курса — свалка всех файлов :)</li>
-<li><a href="https://github.com/bdemeshev/mcmc_pset/raw/master/mcmc_pset_main.pdf">черновик задачника</a></li>
+<li>Страничка <a href="https://github.com/bdemeshev/em301/wiki/R">про R</a>, страничка <a href="https://github.com/bdemeshev/pr201/wiki/latex_examples">про Latex</a>, все <a href="https://vimeo.com/album/2113800">видео на vimeo</a></li>
+<li><a href="https://github.com/bdemeshev/mc201/raw/master/lecture_notes/mc201_notes.pdf">Текущий конспект</a></li>
+<li><em>Прототип</em> <a href="https://github.com/bdemeshev/mc201/raw/master/mcmc_problems/mcmc_problems.pdf">задачника</a>. Да, <a href="https://www.youtube.com/watch?v=9O_DJM8VHxc"><em>прототип</em></a> (с).</li>
+</ul>
+<div id="-9-18.12.12" class="section level3">
+<h3>Лекция 9, 18.12.12</h3>
+<ul>
+<li>Дооценили модель игрушку. Мораль:
+<ul>
+<li>если числа экстремально большие или экстремально маленькие — переходите к логарифмам</li>
+<li>сложные действия разбивайте на несколько простых функций. Так проще найти ошибку.</li>
+</ul></li>
+<li>Оценим <a href="http://rpubs.com/boris_demeshev/3266">парную регрессию в jags</a>! Исходники: <a href="https://github.com/bdemeshev/mc201/raw/master/jags_1/jags_1.Rmd">Rmd</a>, <a href="https://github.com/bdemeshev/mc201/raw/master/jags_1/simple_regression.jags">jags</a>.</li>
 </ul>
 </div>
-<div id="-2017" class="section level3">
-<h3>ранх-2017</h3>
+<div id="-8-04.12.12" class="section level3">
+<h3>Лекция 8, 04.12.12</h3>
 <ul>
-<li>Лекция 2. Работа с матрицами.</li>
-<li>Лекция 1. Монетка из шапки: <a href="https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.stan">код stan</a>, <a href="https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.R">код R</a></li>
+<li><a href="http://rpubs.com/boris_demeshev/3057">Генерим забубенистую случайную величину</a>, <a href="https://github.com/bdemeshev/mc201/raw/master/crazy_distribution/crazy_dist.Rmd">Rmd</a>-источник.</li>
+<li>Оцениваем <a href="http://rpubs.com/boris_demeshev/3078">модель-игрушку</a>, <a href="https://github.com/bdemeshev/mc201/raw/master/toy_model_1/toy_model_1.Rmd">Rmd</a>-источник.</li>
 </ul>
 </div>
-<div id="-2012" class="section level3">
-<h3>вшэ-2012</h3>
+<div id="-7-27.11.12" class="section level3">
+<h3>Лекция 7, 27.11.12</h3>
 <ul>
-<li><a href="https://github.com/bdemeshev/mc201/raw/master/docs/hse_2012/agitka.html">Агитка на курс</a></li>
-<li><a href="https://github.com/bdemeshev/mc201/raw/master/docs/hse_2012/2012_log.html">Лог курса</a></li>
+<li>Регулярные цепи, условие баланса</li>
+<li>Из условия регулярности следует стационарность распределения</li>
+<li>Решение задачи про коня</li>
+<li>Доказательство алгоритма Метрополиса-Хастингса в дискретном случае</li>
+<li><a href="http://rpubs.com/boris_demeshev/2909">Построение геометрического распределения</a> из симметричного случайного блуждания. <a href="https://github.com/bdemeshev/mc201/raw/master/sem_mh.Rmd">Rmd</a>-источник</li>
 </ul>
+<p>Домашнее задание:</p>
+<ul>
+<li>Сгенерите выборку из функции плотности <span class="math inline">\(\pi(x)\sim \exp(-x^2)(3+cos(x)+2sin(x)+x^2)\)</span> применив алгоритм Метрополиса-Хастингса к случайному блужданию <span class="math inline">\(x_{t+1}=x_t+\varepsilon_t\)</span>, где <span class="math inline">\(\varepsilon_t\sim N(0,1)\)</span>.</li>
+</ul>
+</div>
+<div id="-6-20.11.12" class="section level3">
+<h3>Лекция 6, 20.11.12</h3>
+<ul>
+<li>Регулярная марковская цепь</li>
+<li>Левые и правые собственные числа матрицы P одинаковые</li>
+<li>Есть собственное число равное 1.</li>
+<li>У конечной регулярной марковской цепи есть стационарный вектор</li>
+<li>Доказательство Дёблина сходимости конечной регулярной цепи к стационарному состоянию. Прочтите пару строк про Дёблина в <a href="http://en.wikipedia.org/wiki/Wolfgang_Doeblin">википедии</a>.</li>
+</ul>
+</div>
+<div id="-5-13.11.12" class="section level3">
+<h3>Лекция 5, 13.11.12</h3>
+<ul>
+<li>Теорема Брауэра</li>
+<li>Лемма о причесывании ежа</li>
+<li>Существование стационарного вектора у конечной марковской цепи</li>
+<li>Библиотека <code>ggplot2</code>. Построение матрицы диаграмм рассеяния, <code>plotmatrix()</code></li>
+</ul>
+</div>
+<div id="-4-6.11.12" class="section level3">
+<h3>Лекция 4, 6.11.12</h3>
+<ul>
+<li>Введение в R</li>
+<li>R как калькулятор и векторы: <a href="https://github.com/bdemeshev/pr201/raw/master/sem1_intro_R.pdf">pdf</a> и Rnw</li>
+<li>Матрицы и таблицы данных в R: pdf и Rnw</li>
+<li>Написание функций в R: pdf и Rnw</li>
+</ul>
+</div>
+<div id="-3-30.10.12" class="section level3">
+<h3>Лекция 3, 30.10.12</h3>
+<ul>
+<li>Фотоаппарат нас победил :)</li>
+<li>Переходные и поглощающие состояния</li>
+<li>Поглощающая цепь рано или поздно достигнет поглощающего состояния</li>
+<li>Вероятность посетить переходный узел j, если начать с переходного узла i</li>
+<li>Ожидаемое количество посещений переходного узла j, если начать с переходного узла i</li>
+<li>(I-Q)^{-1}</li>
+<li>Ожидаемое количество ходов до поглащения</li>
+<li>Вероятности для Даши и Глаши</li>
+<li>Вероятность поглотиться поглощающим узлом j, если начать с узла i</li>
+<li>B=R+QB</li>
+<li>Байесовская оценка среднего при известной дисперсии</li>
+<li>Попытка решения домашней задачи</li>
+</ul>
+<p>Домашнее задание:</p>
+<ul>
+<li>Муха и Паук (поглощающее состояние)</li>
+<li>Просто граф кружочком</li>
+<li>Прочитать, хотя бы пролистать, главу 11 из Grinsted, Snell, <a href="http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html">Introduction to probability</a></li>
+</ul>
+</div>
+<div id="-2-26.10.12" class="section level3">
+<h3>Лекция 2, 26.10.12</h3>
+<ul>
+<li>Борьба с фотоаппаратом <a href="https://vimeo.com/52481944">продолжается</a> :) Если кто готов приносить на время лекций свой цифровой фотоаппарат с возможностью съемки видео, то это еще актуально!</li>
+<li>Совместные функции плотности не несут информации о причинности</li>
+<li>Разложение вероятности на сомножители исходя из байесовской сети</li>
+<li>Марковские цепи с конечным множеством состояний: Чебурашка, Parrondo</li>
+<li>Байесовский подход к оценке параметра: простые примеры</li>
+<li>Неудавшаяся попытка рассказать про частную корреляцию. Откатились к предыдущему save-файлу :)</li>
+</ul>
+<p>Домашнее задание:</p>
+<ul>
+<li>Задача про Байесовского Коня, Глаша и Даша играют в орлянку до РРР или ОРО.</li>
+<li>Задача на байесовское оценивание с двумя параметрами</li>
+<li>Установите: R, R-studio, JAGS, texlive (вместо texlive: на маке можно mactex, на windows можно miktex), texmaker, какой-нибудь приличный текстовый редактор (на windows вместо блокнота пойдет notepad++). Страничка <a href="https://github.com/bdemeshev/em301/wiki/Software">с софтом</a></li>
+</ul>
+</div>
+<div id="-1-19.10.12" class="section level3">
+<h3>Лекция 1, 19.10.12</h3>
+<ul>
+<li>К сожалению, были проблемы с фотоаппаратом, поэтому <a href="https://vimeo.com/51821312">видео-1 только кусками</a>.</li>
+<li>Чудеса условной вероятности</li>
+<li>Независимость и условная независимость</li>
+<li>Направленные графы</li>
+</ul>
+<p>Домашнее задание:</p>
+<ul>
+<li>Разберитесь с Parrondo game.</li>
+<li>Выясните независимость и условную независимость на графе.</li>
+<li>Если у кого есть видеокамера/фотоаппарат способный отснять 80 минут без перерыва, а потом еще 80 минут, то напишите на <a href="mailto:boris.demeshev@gmail.com">boris.demeshev@gmail.com</a>. Мой оказывается не может.</li>
+</ul>
+</div>
+</div>
+<div class="section level2">
+<h2>Ссылки</h2>
+<ul>
+<li>Jackman, <a href="http://jackman.stanford.edu/classes/BASS/index.php">Bayesian analysis for the social sciences</a></li>
+<li>Peter Neal, <a href="http://www.maths.manchester.ac.uk/~pneal/CIS/CIS2007.html">Computationally Intensive Statistics</a></li>
+<li><a href="http://doingbayesiandataanalysis.blogspot.ru/">Kruschke blog</a></li>
+<li>Теория вероятностей с марковскими цепями, <a href="http://www.math.ucdavis.edu/~gravner/MAT135B/materials/">MAT 135B</a></li>
+<li>Марковские цепи <a href="http://www.cs.princeton.edu/courses/archive/spring12/cos423/bib/MarkovChains-3.pdf">cos423</a></li>
+<li>Grinsted, Snell, <a href="http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html">Introduction to probability</a></li>
+<li>Steve Bronder, <a href="http://www.stevebronder.com/s/BayesRnD72514.pdf">Bayesian Hierarchical Models</a></li>
+</ul>
+</div>
+<div class="section level2">
+<h2>Лицензия</h2>
+<p>Созданные мной для данного курса материалы распространяются по лицензии <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/deed.ru">Creative Commons Attribution-NonCommercial-ShareAlike</a></p>
 </div>
 
 

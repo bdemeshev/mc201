@@ -1,0 +1,118 @@
+
+УРА!
+-----
+Мы сделали это!!! Мы встретим Новый Год с чистой совестью! Всем Большое Спасибо!
+
+Расписание
+----------
+Старая титульная [страничка](https://github.com/bdemeshev/mc201/wiki/Home2).
+
+Заметки к лекциям
+---------
+* Страничка [про R](https://github.com/bdemeshev/em301/wiki/R), страничка [про Latex](https://github.com/bdemeshev/pr201/wiki/latex_examples), все [видео на vimeo](https://vimeo.com/album/2113800)
+* [Текущий конспект](https://github.com/bdemeshev/mc201/raw/master/lecture_notes/mc201_notes.pdf)
+* *Прототип* [задачника](https://github.com/bdemeshev/mc201/raw/master/mcmc_problems/mcmc_problems.pdf). Да, [*прототип*](https://www.youtube.com/watch?v=9O_DJM8VHxc) (с).
+
+
+### Лекция 9, 18.12.12
+* Дооценили модель игрушку. Мораль: 
+    * если числа экстремально большие или экстремально маленькие --- переходите к логарифмам
+    * сложные действия разбивайте на несколько простых функций. Так проще найти ошибку. 
+* Оценим [парную регрессию в jags](http://rpubs.com/boris_demeshev/3266)! Исходники: [Rmd](https://github.com/bdemeshev/mc201/raw/master/jags_1/jags_1.Rmd), [jags](https://github.com/bdemeshev/mc201/raw/master/jags_1/simple_regression.jags). 
+
+
+### Лекция 8, 04.12.12
+* [Генерим забубенистую случайную величину](http://rpubs.com/boris_demeshev/3057), [Rmd](https://github.com/bdemeshev/mc201/raw/master/crazy_distribution/crazy_dist.Rmd)-источник.
+* Оцениваем [модель-игрушку](http://rpubs.com/boris_demeshev/3078), [Rmd](https://github.com/bdemeshev/mc201/raw/master/toy_model_1/toy_model_1.Rmd)-источник.
+
+### Лекция 7, 27.11.12
+* Регулярные цепи, условие баланса
+* Из условия регулярности следует стационарность распределения
+* Решение задачи про коня
+* Доказательство алгоритма Метрополиса-Хастингса в дискретном случае
+* [Построение геометрического распределения](http://rpubs.com/boris_demeshev/2909) из симметричного случайного блуждания. [Rmd](https://github.com/bdemeshev/mc201/raw/master/sem_mh.Rmd)-источник
+
+Домашнее задание:
+
+* Сгенерите выборку из функции плотности $\pi(x)\sim \exp(-x^2)(3+cos(x)+2sin(x)+x^2)$ применив алгоритм Метрополиса-Хастингса к случайному блужданию $x_{t+1}=x_t+\varepsilon_t$, где $\varepsilon_t\sim N(0,1)$.
+
+### Лекция 6, 20.11.12
+* Регулярная марковская цепь
+* Левые и правые собственные числа матрицы P одинаковые
+* Есть собственное число равное 1. 
+* У конечной регулярной марковской цепи есть стационарный вектор
+* Доказательство Дёблина сходимости конечной регулярной цепи к стационарному состоянию. Прочтите пару строк про Дёблина в [википедии](http://en.wikipedia.org/wiki/Wolfgang_Doeblin).
+
+### Лекция 5, 13.11.12
+* Теорема Брауэра
+* Лемма о причесывании ежа
+* Существование стационарного вектора у конечной марковской цепи
+* Библиотека `ggplot2`. Построение матрицы диаграмм рассеяния, `plotmatrix()`
+
+
+### Лекция 4, 6.11.12
+* Введение в R
+* R как калькулятор и векторы: [pdf](https://github.com/bdemeshev/pr201/raw/master/sem1_intro_R.pdf) и Rnw
+* Матрицы и таблицы данных в R: pdf и Rnw
+* Написание функций в R: pdf и Rnw
+
+### Лекция 3, 30.10.12
+* Фотоаппарат нас победил :)
+* Переходные и поглощающие состояния
+* Поглощающая цепь рано или поздно достигнет поглощающего состояния
+* Вероятность посетить переходный узел j, если начать с переходного узла i
+* Ожидаемое количество посещений переходного узла j, если начать с переходного узла i
+* (I-Q)^{-1}
+* Ожидаемое количество ходов до поглащения
+* Вероятности для Даши и Глаши
+* Вероятность поглотиться поглощающим узлом j, если начать с узла i
+* B=R+QB
+* Байесовская оценка среднего при известной дисперсии
+* Попытка решения домашней задачи
+
+Домашнее задание:
+
+* Муха и Паук (поглощающее состояние)
+* Просто граф кружочком
+* Прочитать, хотя бы пролистать, главу 11 из Grinsted, Snell, [Introduction to probability](http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html)
+
+### Лекция 2, 26.10.12
+* Борьба с фотоаппаратом [продолжается](https://vimeo.com/52481944) :) Если кто готов приносить на время лекций свой цифровой фотоаппарат с возможностью съемки видео, то это еще актуально!
+* Совместные функции плотности не несут информации о причинности
+* Разложение вероятности на сомножители исходя из байесовской сети
+* Марковские цепи с конечным множеством состояний: Чебурашка, Parrondo
+* Байесовский подход к оценке параметра: простые примеры
+* Неудавшаяся попытка рассказать про частную корреляцию. Откатились к предыдущему save-файлу :)
+
+Домашнее задание:
+
+* Задача про Байесовского Коня, Глаша и Даша играют в орлянку до РРР или ОРО.
+* Задача на байесовское оценивание с двумя параметрами
+* Установите: R, R-studio, JAGS, texlive (вместо texlive: на маке можно mactex, на windows можно miktex), texmaker, какой-нибудь приличный текстовый редактор (на windows вместо блокнота пойдет notepad++). Страничка [с софтом](https://github.com/bdemeshev/em301/wiki/Software)
+
+
+### Лекция 1, 19.10.12
+* К сожалению, были проблемы с фотоаппаратом, поэтому [видео-1 только кусками](https://vimeo.com/51821312).
+* Чудеса условной вероятности
+* Независимость и условная независимость
+* Направленные графы 
+
+Домашнее задание: 
+
+* Разберитесь с Parrondo game. 
+* Выясните независимость и условную независимость на графе.
+* Если у кого есть видеокамера/фотоаппарат способный отснять 80 минут без перерыва, а потом еще 80 минут, то напишите на boris.demeshev@gmail.com. Мой оказывается не может.
+
+Ссылки
+-------
+* Jackman, [Bayesian analysis for the social sciences](http://jackman.stanford.edu/classes/BASS/index.php)
+* Peter Neal, [Computationally Intensive Statistics](http://www.maths.manchester.ac.uk/~pneal/CIS/CIS2007.html) 
+* [Kruschke blog](http://doingbayesiandataanalysis.blogspot.ru/)
+* Теория вероятностей с марковскими цепями, [MAT 135B](http://www.math.ucdavis.edu/~gravner/MAT135B/materials/)
+* Марковские цепи [cos423](http://www.cs.princeton.edu/courses/archive/spring12/cos423/bib/MarkovChains-3.pdf)
+* Grinsted, Snell, [Introduction to probability](http://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/book.html)
+* Steve Bronder, [Bayesian Hierarchical Models](http://www.stevebronder.com/s/BayesRnD72514.pdf)
+
+
+## Лицензия
+Созданные мной для данного курса материалы распространяются по лицензии [Creative Commons Attribution-NonCommercial-ShareAlike](http://creativecommons.org/licenses/by-nc-sa/3.0/deed.ru)

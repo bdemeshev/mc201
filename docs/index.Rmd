@@ -10,4 +10,7 @@
 * Лекция 2. Работа с матрицами.
 * Лекция 1. Монетка из шапки: [код stan](https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.stan), [код R](https://github.com/bdemeshev/mc201/raw/master/2017/ranepa/lec_01/coins.R)
 
-### вшэ-2013 (?)
+### вшэ-2012
+
+* [Агитка на курс](https://github.com/bdemeshev/mc201/raw/master/docs/hse_2012/agitka.html)
+* [Лог курса](https://github.com/bdemeshev/mc201/raw/master/docs/hse_2012/2012_log.html)
